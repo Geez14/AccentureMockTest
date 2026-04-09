@@ -1,0 +1,52 @@
+:root {
+  --ha-ink: #14304a;
+  --ha-subtle: #5f7182;
+  --ha-bg: #f4f8fb;
+  --ha-surface: rgba(255, 255, 255, 0.9);
+  --ha-panel: #ffffff;
+  --ha-border: #cfe0ea;
+  --ha-accent: #0f8b8d;
+  --ha-accent-strong: #0b6d6f;
+  --ha-accent-soft: rgba(15, 139, 141, 0.12);
+  --ha-focus: #ef7d57;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: var(--ha-ink);
+  background: var(--ha-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top left, rgba(15, 139, 141, 0.14), transparent 30%),
+    radial-gradient(circle at top right, rgba(239, 125, 87, 0.12), transparent 28%),
+    linear-gradient(180deg, #f8fbfd 0%, #eef5f9 100%);
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+#root {
+  min-height: 100vh;
+}

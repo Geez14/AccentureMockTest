@@ -1,0 +1,70 @@
+package com.jfs.training.web.controller;
+
+import java.util.List;
+
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.jfs.training.bean.PatientBean;
+import com.jfs.training.services.PatientService;
+
+/**
+ * REST Controller for managing Patient operations.
+ * Spring Boot 2.7.3 compatible.
+ * Designed to be consumed by React frontend.
+ */
+@RestController
+@RequestMapping("/patients")
+public class PatientController {
+
+    @Autowired
+    private PatientService patientService;
+
+    /**
+     * Fetch all patients.
+     *
+     * URL: /patients/list
+     * Method: GET
+     */
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
+    public ResponseEntity<List<PatientBean>> listPatients() {
+
+        return ResponseEntity.ok(patientService.getAllPatients());
+    }
+
+    /**
+     * Save a new patient.
+     *
+     * URL: /patients/save
+     * Method: POST
+     */
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public ResponseEntity<?> savePatient(
+            @Valid PatientBean patientBean,
+            BindingResult result) throws Exception {
+        if (result.hasErrors()) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(result.getAllErrors());
+        }
+        patientService.savePatient(patientBean);
+        return ResponseEntity.ok(null);
+    }
+
+    /**
+     * Global exception handler for this controller.
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<String> handleAllExceptions(Exception exception) {
+
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(exception.getMessage());
+    }
+}
